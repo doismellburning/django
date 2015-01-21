@@ -1,9 +1,22 @@
+import warnings
+
 from django import template
 from django.template.base import Node
+from django.utils.deprecation import RemovedInDjango20Warning
 from django.utils.encoding import iri_to_uri
 from django.utils.six.moves.urllib.parse import urljoin
 
 register = template.Library()
+
+
+warnings.warn(
+    "Using the `django.templatetags.static` tags (probably with "
+    "`{% load static %}` in your templates) is deprecated and will be "
+    "removed in Django 2.0. You should use "
+    "`django.contrib.staticfile.templatetags` instead, via "
+    "`{% load staticfiles %}` - this should involve only minor changes to "
+    "your use of the `{% static %}` tag.",
+    RemovedInDjango20Warning)
 
 
 class PrefixNode(template.Node):
